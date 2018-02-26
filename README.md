@@ -5,6 +5,8 @@
 - Make sure you have elasticserver and MongoDB installed on your computer. Check .env file and make sure you enter the right
 Twitter Developer credentials (assuming you have one).
 - Then run command "concurrently --kill-others \"npm run start-api-server-dev > api.log\" \"npm run start-twitter-server-dev\" > tw.log"
+- Go to 'localhost:3000' (or if you changed .env file, go to the hostname/port that you set)
+- Enjoy your search on #meinunterricht!
 
 
 2. Design Decisions
