@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <input title="Keyword: " type="text" name="keyword" id="keyword">
+        <button type="button" id="search">Search!</button>
+        <div id="results">
+
+        </div>
+        <script>
+            var button = document.getElementById("search");
+            button.onclick = function() {
+                var keyword = document.getElementById("keyword").value;
+                console.log(keyword);
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                        setResults(JSON.parse(xmlHttp.responseText));
+                    }
+                };
+                xmlHttp.open("GET", "http://localhost:3000/tweets?q=" + keyword);
+                xmlHttp.send(null);
+            };
+
+            var setResults = function(results) {
+                console.log(results);
+                var newElem = "";
+                var tweets = results.hits.hits;
+                for (var tweetIndex in tweets) {
+                    tweet = tweets[tweetIndex]._source;
+                    newElem += "<p>" +
+                            "<strong>@" + tweet.username + " </strong>" +
+                            "<span>" + tweet.text + "</span>" +
+                            "</p>"
+                }
+                document.getElementById("results").innerHTML = newElem;
+            };
+        </script>
+    </body>
+</html>
